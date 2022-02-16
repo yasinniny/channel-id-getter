@@ -34,11 +34,10 @@ client.once('ready', async () => {
     console.log(allChannelId);
     const channelData = JSON.stringify(allChannelId);
     try {
-        fs.writeFileSync("./util/channelData.json", channelData);
+       fs.writeFileSync("channelData.json", channelData);
     } catch (error) {
         console.error(error);
     }
-    console.log("Successful!");
 });
 
 client.login(token);

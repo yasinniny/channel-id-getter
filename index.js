@@ -11,15 +11,25 @@ client.once('ready', async () => {
     // task: when found the same c name -> how to distinguish it.
     // If you want to remove the specific category to add, add the exception into ./util/config.json as array
     // now, doesnt support the same category name please add to the exception
+
+    function hyphen(name) {
+        if (name.indexOf('-') !== -1) {
+            return name.replaceAll("-", "_");
+        } else {
+            return name;
+        };
+    };
+
     channels.cache
         .sort((a, b) => a.rawPosition - b.rawPosition)
         .each(c => {
             for (let key of exception) {
                 if (c.name !== key && c.type === "GUILD_CATEGORY") {
-                    allChannelId[c.name] = [c.id];
+                    let changedName = hyphen(c.name);
+                    allChannelId[changedName] = [c.id];
                 };
             };
-        })
+        });
 
     channels.cache
         .sort((a, b) => a.rawPosition - b.rawPosition)
@@ -27,7 +37,8 @@ client.once('ready', async () => {
         .each(async (c) => {
             for (let p in allChannelId) {
                 if (c.parentId === allChannelId[p][0]) {
-                    allChannelId[p].push({[c.name]: c.id});
+                    const finalName = hyphen(c.name);
+                    allChannelId[p].push({[finalName]: c.id});
                 };
             };
         })

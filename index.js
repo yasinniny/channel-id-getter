@@ -9,6 +9,7 @@ client.once('ready', async () => {
     const allChannelId = {};
     
     // task: when found the same c name -> how to distinguish it.
+    // task: the way to store data.
     // If you want to remove the specific category to add, add the exception into ./util/config.json as array
     // now, doesnt support the same category name please add to the exception
 
